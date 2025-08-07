@@ -1,0 +1,30 @@
+Dockerfile을 작성하여 2222:22포트를 활성화하는  aws  linux의 이미지 파일을 만들고 사용자 데이터를 테스트하시오.
+#!/bin/bash
+sudo yum update -y
+sudo yum install -y java-17-amazon-corretto
+sudo mkdir -p /opt/tomcat
+cd /tmp
+sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.100/bin/apache-tomcat-9.0.100.tar.gz
+sudo tar -xzvf apache-tomcat-9.0.100.tar.gz -C /opt/tomcat --strip-components=1
+sudo chmod +rwx /opt/tomcat/bin
+sudo chmod 755 /opt/tomcat/bin/*.sh
+sudo touch /etc/systemd/system/tomcat.service
+sudo chmod 777 /etc/systemd/system/tomcat.service
+
+sudo cat <<EOF> /etc/systemd/system/tomcat.service
+[Unit]
+Description=Apache Tomcat Server
+After=network.target
+[Service]
+Type=forking
+User=root
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
