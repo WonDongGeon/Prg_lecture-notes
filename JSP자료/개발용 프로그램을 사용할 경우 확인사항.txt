@@ -1,0 +1,87 @@
+1. 프로그램의 환경변수(tomcat-server-xml)
+2. 시스템환경변수(path설정)
+
+**중요**
+path의 역할은 언제 어디서든지 콘솔상에서 프로그램 명령을 실행할 수 있다.
+
+특수한 환경변수: 
+자바 => JAVA_HOME, 
+메이븐 => MAVEN_HOME
+path = %path%;%JAVA_HOME%\bin
+
+참고명령)echo %path%, echo %JAVA_HOME%
+환경변수 재등록 후 cmd창은 종료 후 다시 실행해야 적용됨.
+
+#w자바의 다양한 버전 다운로드
+https://jdk.java.net/
+
+#개발환경에 따른 개발가이드를 참고하여 버전 선택확인
+https://www.egovframe.go.kr/home/main.do
+
+D:\20250317_JAVA\PlayGround\tomcat\bin
+에 있는 startup.bat을 실행해야 테스트 가능
+(server.xml이나 파일 생성 등을 했을 경우 종료하고 재실행)
+
+##웹서버의 기본경로
+D:\20250317_JAVA\PlayGround\tomcat\webapps
+
+위의 경로를 변경하고싶은 경우
+conf/server.xml파일의 <Host> </Host>태그 사이에 아래 코드 입력 후
+
+프로그램 다시 실행
+<Context path="/" docBase="D:\20250317_JAVA\PlayGround\tomcat\webapps\imsiweb" privileged="true"/>
+
+확인:localhost:8888/web => imsiweb/index.html => conf/web.xml (welcome-file-list 확인)
+path를 /로 변경하면 다음과 같이 확인 localhost:8888
+
+#자바컴파일과정
+java파일 -> javac컴파일 -> class파일생성
+실제 사용하는 파일은 class파일, 이파일을 어떤 특정한 곳에서 넣어서 프로그램 실행을 하도록 하면된다.
+
+##서블릿 처리과정
+자바파일에 서블릿을 상속받아 코드 작성 후 컴파일(class파일 생성)
+webapps/Root/WEB-INF/classes폴더를 생성 후 컴파일한 파일 넣기
+webppas/Rott/WEB-INF/web.xml 파일에 웹서비스를 위한 서블릿 등록
+<servlet></servlet> : 서블릿을 등록(servlet-name, servlet-class)
+<servlet-mapping></servlet-mapping> : 서블릿 주소를 등록(servlet-name, url-parttern)
+#웹브라우저에서 등록된 url-pattern을 실행
+
+##이클립스에서 웹설정
+4가지???
+
+vscode에서 
+java extention java
+debugger for java
+tomcat for java
+Language Support for java(TM) by REd Hat
+
+환경변수
+CATALINA_HOME = D:\20250317_JAVA\PlayGround\tomcat
+
+##이클립스에서 웹서버 충돌해결
+netstat -ano???
+
+cmd창 java 명령어
+javac 명.java -> .class파일 생성(컴파일)
+java 명.java -> 자바 실행
+java -cp .. javawork.Main -> javawork폴더 있는 Main 실행
+
+cmd창에서 notepad hello.java 입력
+
+hello.java 파일 생성
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+public class Hello extends HttpServlet{
+	public void service(HttpServletRequest request,
+HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("console print test");
+		OutputStream os = response.getOutputStream();
+		printStream out =new PrintStream(os, true);
+		out.println("<h1>Hello servlet!!</h1>");	
+	}
+}
+
+hello.java 파일은 cmd창에서 javac -cp D:\20250317_JAVA\PlayGround\tomcat\lib\servlet-api.jar Hello.java
+로 컴파일
