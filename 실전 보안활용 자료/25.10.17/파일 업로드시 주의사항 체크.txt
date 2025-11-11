@@ -1,5 +1,0 @@
-1. 파일 확장자 체크
-2. 파일 크기 제한
-3. 파일 이름을 지정하여 저장하지 않게 하기 (ex. UUID prefix, timestamp)
-4. v-html 사용하지 않기
-5. xss sanitizer. 필터 or 정규식을 이용해서 파싱하기

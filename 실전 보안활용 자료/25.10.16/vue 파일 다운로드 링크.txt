@@ -1,8 +1,0 @@
-http://tomhoon.my:8889/download/BoardDetail.vue
-http://tomhoon.my:8889/download/BoardList.vue
-http://tomhoon.my:8889/download/BoardWrite.vue
-http://tomhoon.my:8889/download/JoinPage.vue
-http://tomhoon.my:8889/download/LoginPage.vue
-http://tomhoon.my:8889/download/main.js
-http://tomhoon.my:8889/download/package.json
-http://tomhoon.my:8889/download/router.js

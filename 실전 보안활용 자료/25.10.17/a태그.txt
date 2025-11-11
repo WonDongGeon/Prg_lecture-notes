@@ -1,3 +1,0 @@
-<a href="http://localhost:8085/uploads/angel.html">
-충격뉴스! 클릭해보면 
-</a>
