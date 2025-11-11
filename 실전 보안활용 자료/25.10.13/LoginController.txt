@@ -1,0 +1,60 @@
+package com.example.monitoring.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RestController
+@CrossOrigin("*")
+public class LoginController {
+
+ private final String RECAPTCHA_SECRET = "본인비밀키";
+
+ private boolean verifyRecaptchaToken(String token) {
+  String verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+
+  RestTemplate restTemplate = new RestTemplate();
+  MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+  body.add("secret", RECAPTCHA_SECRET);
+  body.add("response", token);
+
+  HttpHeaders headers = new HttpHeaders();
+  headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+  HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
+
+  try {
+   ResponseEntity<Map> response = restTemplate.postForEntity(verifyUrl, request, Map.class);
+   Map<String, Object> responseBody = response.getBody();
+   return (Boolean) responseBody.get("success");
+  } catch (Exception e) {
+   e.printStackTrace();
+   return false;
+  }
+ }
+
+ @PostMapping("/api/login")
+ public ResponseEntity<?> postMethodName(@RequestBody Map<String, Object> entity) {
+  System.out.println(">>>>>> entity " + entity);
+
+  boolean verified = verifyRecaptchaToken((String) entity.get("recaptchaToken"));
+  if (!verified) {
+   return ResponseEntity.badRequest().body("reCAPTCHA failed");
+  }
+
+	// 로그인 처리를 여기에다가 하면 됨..
+	
+  return ResponseEntity.ok("Login success");
+ }
+
+}

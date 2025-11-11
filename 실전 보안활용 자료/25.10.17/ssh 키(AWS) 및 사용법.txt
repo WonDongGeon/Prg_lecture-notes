@@ -1,0 +1,16 @@
+ssh -i my-pemkey2.pem ubuntu@3.37.130.210
+
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+free -h
+
+sudo apt update
+sudo apt install -y docker.io docker-compose
+sudo apt install certbot
+sudo certbot certonly --standalone -d 도메인명 -d www.도메인명 --email 이메일주소 --agree-tos --no-eff-email
+
+nslookup 도메인
+
+sudo certbot certonly --standalone -d 도메인명 --email 이메일주소 --agree-tos --no-eff-email
