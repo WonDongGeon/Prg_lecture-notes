@@ -21,7 +21,8 @@
 - **Oracle자료 / Oracle자료2** : Oracle DB 학습 자료 (SQL, DDL/DML, PL/SQL 등)  
 - **Spring자료** : Spring Framework 학습 자료 (MVC, DI, AOP 등)  
 - **SpringBoot자료** : Spring Boot 학습 자료 (REST API, JPA, Security 등)  
-- **시큐어코딩자료** : 보안 취약점 및 Secure Coding 학습 자료 (OWASP Top 10 대응 등)  
+- **시큐어코딩자료** : 보안 취약점 및 Secure Coding 학습 자료 (OWASP Top 10 대응 등)
+- **실전활용자료** : 실제 회사에서 사용되는 코드 작업에 대한 자료
 - **자격증명서 및 이수증** : 교육 과정 이수증 및 관련 자격증 자료  
 
 ---
